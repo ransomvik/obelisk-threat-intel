@@ -1,0 +1,38 @@
+<!--<form script="custom_vizs:autodiscover_globe.js" stylesheet="dark.css">-->
+<form script="autodiscover_globe.js" stylesheet="dark.css">
+  <label>Obelisk Threat Globe</label>
+  <fieldset submitButton="false" autoRun="true"></fieldset>
+  <row>
+    <panel>
+      <input type="dropdown" token="grouping" searchWhenChanged="true">
+        <label>Grouping</label>
+        <choice value="">No Grouping</choice>
+        <choice value="threat_list_name">By Threat List</choice>
+        <default></default>
+      </input>
+      <html>
+        <h2>Global Threat List Activity</h2>
+<!--index=obelisk earliest=-24h@h | dedup dest_ip threat_list_name | rename dest_ip AS src_ip  | iplocation src_ip | geostats latfield=lat longfield=lon count by threat_list_name-->        
+<div id="globe_search" class="splunk-manager" data-require="splunkjs/mvc/searchmanager" data-options='{
+          "search": "index=obelisk OR index=optiv earliest=-24h@h NOT threat_list_name=AlienVault_IP_Blocklist | dedup dest_ip threat_list_name | rename dest_ip AS src_ip  | iplocation src_ip | table threat_list_name lat lon",
+          "preview": true,
+          "earliest_time": "0",
+          "latest_time": "now"
+        }'>
+        </div>
+        <div id="globe" class="splunk-view" data-require="app/obelisk-threat-intel/components/globe/globe" data-options='{
+          "managerid": "globe_search",
+          "world_image_path": "app/obelisk-threat-intel/components/globe/world_nature.jpg",
+          "lat_field": "lat",
+          "lon_field": "lon",
+          "group_by_field": {
+            "type": "token_safe",
+            "value": "$$grouping$$"
+          },
+          "spin_speed": 0.2
+        }'>
+        </div>
+      </html>
+    </panel>
+  </row>
+</form>

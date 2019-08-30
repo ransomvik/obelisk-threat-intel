@@ -1,0 +1,30 @@
+<form>
+    <label>Threat Intel Host Search - Domains</label>
+
+    <!-- define master search template, with replacement tokens delimited with $ -->
+    <search id="BaseSearch1"><query>index=* host=$hst$ [search `obelisk_index` earliest=-72h | dedup dest | table dest] </query></search>
+    <fieldset>
+        <!-- Define a simple dropdown form driven by a search -->
+        <input type="dropdown" token="hst">
+            <label>Select host</label>
+            <choice value="*">Any</choice>
+            <populatingSearch fieldForValue="host" fieldForLabel="host"><![CDATA[index=* host=* | stats count by host]]></populatingSearch>
+        </input>
+        <input type="time" searchWhenChanged="true">
+           <default>
+             <earliest>-4h@h</earliest>
+             <latest>now</latest>
+           </default>
+        </input>
+
+    </fieldset>
+
+    <row>
+        <!-- output the results as a 50 row events view -->
+        <event>
+          <search base="BaseSearch1"><query>search *</query>     </search>
+            <title>Results</title>
+            <option name="count">250</option>
+        </event>
+    </row>
+</form>

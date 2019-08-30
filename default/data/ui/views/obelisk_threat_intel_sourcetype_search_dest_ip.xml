@@ -1,0 +1,31 @@
+<form>
+    <label>Threat Intel Sourcetype Search - Destination IPs</label>
+
+    <!-- define master search template, with replacement tokens delimited with $ -->
+   <search id="BaseSearch1"><query>index=* sourcetype=$srctyp$ [search `obelisk_index` earliest=-72h | dedup dest_ip | table dest_ip] </query></search>
+    <fieldset>
+        <!-- Define a simple dropdown form driven by a search -->
+        <input type="dropdown" token="srctyp">
+            <label>Select sourcetype</label>
+            <choice value="*">Any</choice>
+            <populatingSearch fieldForValue="sourcetype" fieldForLabel="sourcetype"><![CDATA[index=* sourcetype=* | stats count by sourcetype]]></populatingSearch>
+        </input>
+
+        <input type="time" searchWhenChanged="true">
+           <default>
+             <earliest>-4h@h</earliest>
+             <latest>now</latest>
+           </default>
+        </input>
+
+    </fieldset>
+
+    <row>
+        <!-- output the results as a 50 row events view -->
+        <event>
+          <search base="BaseSearch1"><query>search *</query>     </search>
+            <title>Results</title>
+            <option name="count">250</option>
+        </event>
+    </row>
+</form>

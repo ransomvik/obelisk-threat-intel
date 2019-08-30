@@ -1,0 +1,72 @@
+<form>
+  <label>Threat Intel Index Search - Destination IPs</label>
+  <search id="BaseSearch1"><query>(index=$idx$) dest_ip=*  | lookup local=1 all_dest_ips.csv dest_ip OUTPUT threat_list_name, dest_ip  | search threat_list_name=* | dedup dest_ip | eval dest_ip=mvindex(dest_ip,0) | lookup dnslookup clientip as src_ip OUTPUT clienthost as hostname | table index sourcetype dest_ip host threat_list_name hostname | iplocation dest_ip | fields - lat - lon</query></search>
+  <fieldset>
+    <!-- Define a simple dropdown form driven by a search -->
+    <!--<input type="dropdown" token="idx">-->
+    <input type="checkbox" token="idx">
+      <label>Select index(es)</label>
+      <choice value="*">Any</choice>
+      <search>
+        <query>| eventcount summarize=false index=* | search NOT index=summary NOT index=obelisk NOT index=history NOT index=firedalerts | dedup index | fields index</query>
+      </search>
+      <fieldForLabel>index</fieldForLabel>
+      <fieldForValue>index</fieldForValue>
+      <delimiter> OR index=</delimiter>
+    </input>
+    <input type="time" searchWhenChanged="true">
+      <default>
+        <earliest>-4h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+  </fieldset>
+
+
+  <row>
+    <!-- output the results as a 50 row events view -->
+    
+    <table id="master">
+      <search base="BaseSearch1"><query>search *</query>     </search>
+      <title>Results</title>
+      <option name="count">100</option>
+      <option name="drilldown">row</option>
+      <drilldown>
+        <!-- Use set to specify the new token to be created.
+                     Use any token from the page or from the click event to produce the value needed. -->
+        <set token="dstp">$row.dest_ip$</set>
+        <!-- If we also set the form.sourcetype the input will get updated too -->
+        <set token="form.dstp">$row.dest_ip$</set>
+
+      </drilldown>
+    </table>
+  </row>
+
+  
+  <row>
+    <event id="detail1" depends="$dstp$">
+      <title>$idx$ Index Detail: $dstp$</title>
+      <search base="BaseSearch1"><query>index=$idx$ dest_ip=$dstp$</query>     </search>
+    </event>
+  </row>
+
+  
+  
+	<row>
+        <html>
+           
+          <p></p>
+            
+        </html>
+
+    </row>
+  <row>
+    <!-- depends is the way we tell the content to only show when the token has a value.
+             Hint: use comma separated values if the element requires more than one token. -->
+    <event id="detail2" depends="$dstp$">
+      <title>Obelisk Threat List Detail: $dstp$</title>
+      <search base="BaseSearch1"><query>`obelisk_index` dest_ip=$dstp$</query>     </search>
+    </event>
+  </row>
+
+</form>

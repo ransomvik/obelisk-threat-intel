@@ -1,0 +1,5 @@
+"dest_ip","threat_list_name"
+"223.254.0.0/16","Spamhaus_Drop_Nets"
+"223.173.0.0/16","Spamhaus_Drop_Nets"
+"223.169.0.0/16","Spamhaus_Drop_Nets"
+"223.0.0.0/15","Spamhaus_Drop_Nets"

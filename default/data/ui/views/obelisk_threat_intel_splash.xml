@@ -1,0 +1,426 @@
+<dashboard>
+  <label>Obelisk Threat Intel Splash</label>
+  <row>
+    <panel depends="$panel_show$">
+      <single>
+        <title>Threat Lists Hits</title>
+        <search>
+          <query>(`network_index_one` OR `network_index_two` OR `network_index_three`) dest_ip=* | lookup local=1 all_dest_ips.csv dest_ip OUTPUT threat_list_name, dest_ip  | search threat_list_name=* | dedup dest_ip | eval dest_ip=mvindex(dest_ip,0) | lookup dnslookup clientip as src_ip OUTPUT clienthost as hostname | table _time index sourcetype dest_ip host threat_list_name hostname | sort -_time | iplocation dest_ip | fields - lat - lon | stats count | where count &gt; 0</query>
+          <earliest>-1h@h</earliest>
+          <latest>now</latest>
+          <progress>
+            <condition match="'job.resultCount' == 1">
+              <set token="panel_show">true</set>
+            </condition>
+            <condition>
+              <unset token="panel_show"></unset>
+            </condition>
+          </progress>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">absolute</option>
+        <option name="trendInterval">-10m</option>
+        <option name="colorBy">value</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">0</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">In the last hour</option>
+        <option name="drilldown">all</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <center>
+        <img src="/static/app/obelisk-threat-intel/obelisk_ips.png"/>
+      </center>
+        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Tor Exit Nodes</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=TorExitNodes  | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+      <single>
+        <title>Emerging Threats Compromised</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=Emerging_Threats_Compromised_IPs | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Bambenek OSINT</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=bambenekIPs | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[12000,15000,17000,20000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+      <single>
+        <title>Ransomware Abuse.ch</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=ransomware_Abuse_CH_IPs | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Green Snow Blacklist</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=green_snow_blacklist | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+      <single>
+        <title>Talos Intel</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=talos_intel_IPs | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Bambenek OSINT</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=bambenekIPs|timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+      <single>
+        <title>Blocklist.de</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=blocklist_de_ips | timechart dc(dest_ip) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <center>
+        <img src="/static/app/obelisk-threat-intel/obelisk_domains.png"/>
+      </center>
+        </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Joe Wein</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=joe_wein_domains | timechart dc(dest) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Ransomware Abuse.ch</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=ransomware_Abuse_CH_domains | timechart dc(dest) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>ISC SANS Suspicious</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=ISC_SANS_Suspicious | timechart dc(dest) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <html>
+        <center>
+        <img src="/static/app/obelisk-threat-intel/obelisk_urls.png"/>
+      </center>
+       </html>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <single>
+        <title>Phish Tank</title>
+        <search>
+          <query>index=summary phish_tank_url_count=* | where phish_tank_url_count&gt;0  | timechart avg(phish_tank_url_count) AS phish_tank_url_count span=1d | fillnull value=NULL| rangemap field=binary_defense_dest_ip_count none=0-1000 low=1001-146149 guarded=146150-165000 elevated=180000-190000 high=190001-200000 severe=200001-999999 default=none</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Ransomware Abuse.CH URLs</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=ransomware_Abuse_CH_URLs | timechart dc(url) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+    <panel>
+      <single>
+        <title>Open Phish</title>
+        <search>
+          <query>`obelisk_index` threat_list_name=Open_Phish_URLs | timechart dc(url) span=1d | fillnull value=NULL</query>
+          <earliest>-7d</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="trendColorInterpretation">standard</option>
+        <option name="trendDisplayMode">percent</option>
+        <option name="trendInterval">-7d</option>
+        <option name="colorBy">trend</option>
+        <option name="rangeColors">["0x0E31EB","0x6db7c6","0xf7bc38","0xf58f39","0xd93f3c"]</option>
+        <option name="rangeValues">[160000,190000,200000,210000]</option>
+        <option name="colorMode">none</option>
+        <option name="numberPrecision">0</option>
+        <option name="showTrendIndicator">1</option>
+        <option name="showSparkline">1</option>
+        <option name="useColors">1</option>
+        <option name="useThousandSeparators">1</option>
+        <option name="underLabel">This week</option>
+        <option name="drilldown">none</option>
+      </single>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>| tstats count AS "Count of Allowed Traffic" from datamodel=Network_Traffic where (nodename = All_Traffic.Traffic_By_Action.Allowed_Traffic) groupby All_Traffic.dest_ip, All_Traffic.src_ip, sourcetype prestats=true summariesonly=t 
+| rename All_Traffic.dest_ip AS dest_ip 
+| rename All_Traffic.src_ip AS src_ip 
+| rename sourcetype AS networktraffic:sourcetype 
+| table dest_ip src_ip networktraffic:sourcetype 
+| join type=inner dest_ip 
+    [ search index=obelisk dest_ip=* earliest=-48h threat_list_name=* ] 
+| lookup dnslookup clientip as src_ip OUTPUT clienthost as hostname 
+| iplocation dest_ip 
+| table src_ip hostname dest_ip networktraffic:sourcetype threat_list_name City Country Region</query>
+          <earliest>-24h@h</earliest>
+          <latest>now</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="count">20</option>
+        <option name="dataOverlayMode">none</option>
+        <option name="drilldown">none</option>
+        <option name="percentagesRow">false</option>
+        <option name="rowNumbers">false</option>
+        <option name="totalsRow">false</option>
+        <option name="wrap">true</option>
+      </table>
+    </panel>
+  </row>
+</dashboard>

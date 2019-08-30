@@ -1,0 +1,33 @@
+<nav search_view="search" color="#228b22">
+  <collection label="Splash">
+     <view name="obelisk_threat_intel_splash" default='true' /> 
+     <view name="obelisk_threat_intel_detail" />
+  </collection>
+  <collection label="Correlate">
+     <collection label="Search by host">
+	 	<view name="obelisk_threat_intel_host_search_dest_ip" />
+		<view name="obelisk_threat_intel_host_search_dest" />
+		<view name="obelisk_threat_intel_host_search_url" />
+	</collection>
+	 <collection label="Search by index">
+	 	<view name="obelisk_threat_intel_index_search_dest_ip" />
+     	<view name="obelisk_threat_intel_index_search_dest" />
+     	<view name="obelisk_threat_intel_index_search_url" />
+     </collection>
+	 <collection label="Search by sourcetype">
+	 	<view name="obelisk_threat_intel_sourcetype_search_dest_ip" />
+		<view name="obelisk_threat_intel_sourcetype_search_dest" />
+		<view name="obelisk_threat_intel_sourcetype_search_url" />
+	</collection>
+    <view name="obelisk_threat_intel_ip_search" />
+    <view name="obelisk_threat_intel_dest_search" /> 
+  </collection>
+  <collection label="Maps">
+     <view name="obelisk_attack_map" />
+     <view name="obelisk_viz_globe" />
+  </collection>
+  <view name="search" />
+  <view name="obelisk_threat_intel_script" />
+  <view name="obelisk_threat_intel_threatlists" />
+  <view name="obelisk_about_obelisk" />
+</nav>

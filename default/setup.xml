@@ -1,0 +1,141 @@
+<setup>
+   <block title="">
+      <text>Obelisk Threat Intel can monitor up to 3 indexes and send an email alert when there is a match on a destination IP. Enter up to three index names to correlate as desired. When in doubt, click Save and set this up later.</text>
+   </block>
+
+
+   <block title="Specify the index to monitor for threat intel hits. Index #1"
+          endpoint="admin/macros"
+          entity="network_index_one">
+
+     <input field="definition">
+       <label>Obelisk Threat Intel will compare destination IP's from threat intelligence sources with the index specified below (example: index=pan_logs). The index must contain fields named dest_ip.</label>
+       <type>text</type>
+     </input>
+
+   </block>
+
+   <block title="Specify the index to monitor for threat intel hits. Index #2"
+          endpoint="admin/macros"
+          entity="network_index_two">
+
+     <input field="definition">
+       <label>Obelisk Threat Intel will compare destination IP's from threat intelligence sources with the index specified below (example: index=pan_logs). The index must contain fields named dest_ip.</label>
+       <type>text</type>
+     </input>
+
+   </block>
+
+   <block title="Specify the index to monitor for threat intel hits. Index #3"
+          endpoint="admin/macros"
+          entity="network_index_three">
+
+     <input field="definition">
+       <label>Obelisk Threat Intel will compare destination IP's from threat intelligence sources with the index specified below (example: index=pan_logs). The index must contain fields named dest_ip.</label>
+       <type>text</type>
+     </input>
+
+   </block>
+
+   <block title="">
+      <text>This section is for email alert configuration. This feature is disabled by default. The index numbers match the ones defined at the top of this setup page.</text>
+   </block>
+
+<!--
+        <block title="Email alert - Index #1" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 1">
+      <text>Configure email alerting for the search: Obelisk - Threat List Hit on Destination IP - Email Alert - Index #1</text>
+
+      <input field="disabled">
+        <label>Disable email alerting.</label>
+        <type>bool</type>
+       </input>
+   </block>
+   <block title="Advanced configuration" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 1">
+      <input field="action.email.to">
+        <label>Email addresses to send to, comma seperated (example: admin@example.com, soc@example.com)</label>
+        <type>text</type>
+      </input>
+      <input field="action.email.sendpdf">
+        <label>Attach PDF to email</label>
+        <type>bool</type>
+      </input>
+      <input field="action.email.sendresults">
+        <label>Attach results to email</label>
+        <type>bool</type>
+      </input>
+      <input field="cron_schedule">
+        <label>Scheduled search time, default is once per day.</label>
+        <type>text</type>
+      </input>
+      <input field="dispatch.earliest_time">
+        <label>Search earliest time.</label>
+        <type>text</type>
+      </input>
+
+   </block>
+
+   <block title="Email alert - Index #2" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 2">
+      <text>Configure email alerting for the search: Obelisk - Threat List Hit on Destination IP - Email Alert - Index #2</text>
+
+      <input field="disabled">
+        <label>Disable email alerting.</label>
+        <type>bool</type>
+       </input>
+   </block>
+   <block title="Advanced configuration" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 2">
+      <input field="action.email.to">
+        <label>Email addresses to send to, comma seperated (example: admin@example.com, soc@example.com)</label>
+        <type>text</type>
+      </input>
+      <input field="action.email.sendpdf">
+        <label>Attach PDF to email</label>
+        <type>bool</type>
+      </input>
+      <input field="action.email.sendresults">
+        <label>Attach results to email</label>
+        <type>bool</type>
+      </input>
+      <input field="cron_schedule">
+        <label>Scheduled search time, default is once per day.</label>
+        <type>text</type>
+      </input>
+      <input field="dispatch.earliest_time">
+        <label>Search earliest time.</label>
+        <type>text</type>
+      </input>
+
+   </block>
+
+   <block title="Email alert - Index #3" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 3">
+      <text>Configure email alerting for the search: Obelisk - Threat List Hit on Destination IP - Email Alert - Index #3</text>
+
+      <input field="disabled">
+        <label>Disable email alerting.</label>
+        <type>bool</type>
+       </input>
+   </block>
+   <block title="Advanced configuration" endpoint="saved/searches/" entity="Obelisk Threat List Hit on Destination IP Email Alert - Index 3">
+      <input field="action.email.to">
+        <label>Email addresses to send to, comma seperated (example: admin@example.com, soc@example.com)</label>
+        <type>text</type>
+      </input>
+      <input field="action.email.sendpdf">
+        <label>Attach PDF to email</label>
+        <type>bool</type>
+      </input>
+      <input field="action.email.sendresults">
+        <label>Attach results to email</label>
+        <type>bool</type>
+      </input>
+      <input field="cron_schedule">
+        <label>Scheduled search time, default is once per day.</label>
+        <type>text</type>
+      </input>
+      <input field="dispatch.earliest_time">
+        <label>Search earliest time.</label>
+        <type>text</type>
+      </input>
+
+   </block>
+-->
+ </setup>

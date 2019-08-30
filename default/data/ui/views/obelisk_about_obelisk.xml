@@ -1,0 +1,15 @@
+<!--<dashboard>-->
+
+<form refresh="1200" hideTitle="true" hideSplunkBar="false" hideFooter="true"> 
+  <label>About Obelisk</label>
+  <row>
+  <html>
+      <h1>Our Company</h1>
+      	<p><font face="Arial">Obelisk Security is an independent boutique security research entity. Our mission is to provide accessible security tools to empower organizations to increase their network security posture.</font></p>
+    <p><font face="Arial">To learn more, visit <a href="https://decept.obelisksec.com">decept.obelisksec.com</a> </font>
+</p>
+    
+    </html>
+  </row>
+</form>
+<!--</dashboard>-->

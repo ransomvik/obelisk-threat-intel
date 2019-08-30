@@ -1,0 +1,31 @@
+url,desc,detailed_desc,weight,artifact_type
+http://rules.emergingthreats.net/fwrules/emerging-Block-IPs.txt,Emerging Threats Blocklist,null,5,dest_ip
+http://rules.emergingthreats.net/blockrules/compromised-ips.txt,Emerging Threats Compromised IPs,null,5,dest_ip
+https://sslbl.abuse.ch/blacklist/sslipblacklist.csv,Abuse CH SSL Blocklist IPs,null,5,dest_ip
+https://reputation.alienvault.com/reputation.generic,AlienVault IP Blocklist,null,5,dest_ip
+https://zeustracker.abuse.ch/blocklist.php?download=ipblocklist,Zeus Tracker,null,5,dest_ip
+http://malc0de.com/bl/IP_Blacklist.txt,Malc0de IPs,null,5,dest_ip
+https://check.torproject.org/exit-addresses,Tor Exit Nodes,null,5,dest_ip
+http://www.openbl.org/lists/base_1days.txt,OpenBL Base 1 Day,null,5,dest_ip
+http://avant.it-mate.co.uk/dl/Tools/hpHosts/hosts.txt,HP Hosts by Malwarebytes Domain List,null,5,dest
+http://hosts-file.net/hphosts-partial.txt,hpHosts,null,5,dest_ip
+https://isc.sans.edu/feeds/suspiciousdomains_High.txt,ISC SANS Suspicious Domain List,null,5,dest
+http://www.malwaredomainlist.com/hostslist/hosts.txt,Malware Domains,null,5,dest
+https://openphish.com/feed.txt,Open Phish URL List,null,5,url
+http://data.phishtank.com/data/online-valid.csv,Phish Tank URLs,null,5,url
+http://osint.bambenekconsulting.com/feeds/c2-ipmasterlist.txt,Bambenek Consulting IP List,null,5,dest_ip
+http://www.talosintel.com/feeds/ip-filter.blf,Talos Intel IP Blocklist,null,5,dest_ip
+http://malc0de.com/bl/ZONES,Malc0de Domains,null,5,dest
+http://cinsscore.com/list/ci-badguys.txt,CI Army Badguys IPs,null,5,dest_ip
+https://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt,Ransomware Tracker IPs,null,5,dest_ip
+https://ransomwaretracker.abuse.ch/downloads/RW_DOMBL.txt,Ransomware Tracker Domains,null,5,dest
+https://ransomwaretracker.abuse.ch/downloads/RW_URLBL.txt,Ransomware Tracker URLs,null,5,url
+http://www.nothink.org/blacklist/blacklist_ssh_all.txt,NoThink.org SSH blacklist,null,5,dest_ip
+https://lists.blocklist.de/lists/all.txt,Blocklist.de,null,5,dest_ip
+http://www.darklist.de/raw.php,Darklist.de IP blacklist,null,5,dest_ip
+http://www.joewein.net/dl/bl/dom-bl.txt,Joe Wein Domains blacklisted domains,null,5,dest
+http://blocklist.greensnow.co/greensnow.txt,GreenSnow.co blacklisted IPs,null,5,dest_ip
+http://spys.me/proxy.txt,Spys Proxy List,null,5,dest_ip
+https://www.badips.com/get/list/any/2,badips.com IPs,null,5,dest_ip
+https://iplists.firehol.org/files/socks_proxy.ipset,SOCKS Proxy IPs,null,5,dest_ip
+https://www.team-cymru.org/Services/Bogons/fullbogons-ipv4.txt,Team Cymru Bogons,null,5,dest_ip

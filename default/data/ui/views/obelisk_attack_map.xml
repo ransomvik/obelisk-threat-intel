@@ -1,0 +1,28 @@
+<dashboard>
+  <label>Obelisk Attack Map</label>
+  <description>Geographical data plotting on integrated maps.</description>
+  <row>
+    <map>
+      <title>Attack Map</title>
+      <search>
+        <query>`obelisk_index` earliest=-24h@h | dedup dest_ip threat_list_name | rename dest_ip AS src_ip  | iplocation src_ip | geostats latfield=lat longfield=lon count by threat_list_name</query>
+        <earliest>0</earliest>
+        <latest></latest>
+      </search>
+      <option name="height">400</option>
+      <!-- use custom colors -->
+      <option name="mapping.seriesColors">[0x5379af,0x9ac23c,0xf7902b,0x956d95,0x6ab7c7,0xd85d3c,0xfac51c,0xdd86af]</option>
+      <!-- adjust marker opacity and size range -->
+      <option name="mapping.markerLayer.markerOpacity">0.8</option>
+      <option name="mapping.markerLayer.markerMinSize">10</option>
+      <option name="mapping.markerLayer.markerMaxSize">60</option>
+      <!-- set initial map center and zoom level -->
+      <option name="mapping.map.center">(30.810646,-10.556976)</option>
+      <option name="mapping.map.zoom">2</option>
+      <option name="mapping.data.maxClusters">100</option>
+      <option name="mapping.tileLayer.maxZoom">7</option>
+      <option name="mapping.tileLayer.minZoom">0</option>
+      <option name="drilldown">all</option>
+    </map>
+  </row>
+</dashboard>

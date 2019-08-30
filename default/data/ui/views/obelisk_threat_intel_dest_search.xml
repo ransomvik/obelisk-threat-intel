@@ -1,0 +1,28 @@
+<form>
+    <label>Threat Intel Domain Search</label>
+
+    <!-- define master search template, with replacement tokens delimited with $ -->
+    <search>`obelisk_index` sourcetype=obelisk_threat_list dest=$dstp$</search>
+    <fieldset>
+        <!-- Define a simple dropdown form driven by a search -->
+        <input type="text" token="dstp">
+            <label>Enter Domain name xxxxxxxx.yyy</label>
+            <choice value="*">Any</choice>
+        </input>
+        <input type="time" searchWhenChanged="true">
+           <default>
+             <earliest>-4h@h</earliest>
+             <latest>now</latest>
+           </default>
+        </input>    
+
+    </fieldset>
+
+    <row>
+        <!-- output the results as a 50 row events view -->
+        <event>
+            <title>Results</title>
+            <option name="count">250</option>
+        </event>
+    </row>
+</form>
